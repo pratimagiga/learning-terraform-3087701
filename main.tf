@@ -32,7 +32,7 @@ module "vpc" {
 resource "aws_instance" "blog" {
   ami                    = data.aws_ami.app_ami.id
   instance_type          = var.instance_type
-  subnet_id              = module.blog_vpc.public_subnets[0]
+  subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [module.blog_sg.security_group_id]
 
   tags = {
@@ -45,7 +45,7 @@ module "blog_sg" {
   version = "5.1.0"
 
  
-  vpc_id  = module.blog_vpc.vpc_id
+  vpc_id  = module.vpc.vpc_id
   name    = "blog"
 
   ingress_rules       = ["http-80-tcp","http-8080-tcp"] 
